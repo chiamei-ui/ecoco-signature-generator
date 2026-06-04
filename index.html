@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ECOCO Email 簽名檔產生器</title>
+    <meta
+      name="description"
+      content="產生符合 ECOCO 品牌格式的 Gmail HTML 簽名檔。"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="tool-header" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">ECOCO Standard Tool</p>
+          <h1 id="page-title">Email 簽名檔產生器</h1>
+          <p class="intro">
+            填寫個人資料後，複製符合公司品牌格式的 Gmail HTML 簽名檔。
+          </p>
+        </div>
+        <img
+          class="brand-logo"
+          src="./assets/signature-assets/logo.jpg"
+          alt="ECOCO"
+        />
+      </section>
+
+      <section class="workspace" aria-label="簽名檔產生工具">
+        <form class="panel form-panel" id="signature-form">
+          <div class="panel-head">
+            <h2>個人資料</h2>
+            <p>中英文分開填寫，系統會自動組成標準格式。</p>
+          </div>
+
+          <div class="field-grid">
+            <label>
+              <span>姓名（中）</span>
+              <input name="nameCn" autocomplete="name" placeholder="王小明" />
+            </label>
+            <label>
+              <span>姓名（英）</span>
+              <input name="nameEn" placeholder="Wang Hsiao-Ming" />
+            </label>
+            <label>
+              <span>職稱（中）</span>
+              <input name="titleCn" placeholder="企劃專員" />
+            </label>
+            <label>
+              <span>職稱（英）</span>
+              <input name="titleEn" placeholder="Planning Specialist" />
+            </label>
+            <label>
+              <span>部門（中）</span>
+              <input name="deptCn" placeholder="企劃部" />
+            </label>
+            <label>
+              <span>部門（英）</span>
+              <input name="deptEn" placeholder="Planning Dept." />
+            </label>
+            <label>
+              <span>公司信箱</span>
+              <input
+                name="email"
+                type="email"
+                autocomplete="email"
+                placeholder="name@ecoco.xyz"
+              />
+            </label>
+            <label>
+              <span>手機</span>
+              <input name="mobile" autocomplete="tel" placeholder="0912-345-678" />
+            </label>
+            <label>
+              <span>分機</span>
+              <input name="ext" inputmode="numeric" placeholder="3215" />
+            </label>
+          </div>
+        </form>
+
+        <section class="panel preview-panel" aria-labelledby="preview-title">
+          <div class="panel-head">
+            <h2 id="preview-title">預覽</h2>
+            <p>確認資訊後，直接複製到 Gmail 簽名欄位。</p>
+          </div>
+
+          <div class="preview-frame">
+            <div id="signature-preview"></div>
+          </div>
+
+          <div class="actions">
+            <button class="primary" type="button" id="copy-rich">
+              複製到 Gmail
+            </button>
+            <button type="button" id="copy-html">複製 HTML 原始碼</button>
+            <button type="button" id="copy-text">複製純文字</button>
+          </div>
+
+          <p class="status" id="copy-status" role="status" aria-live="polite"></p>
+        </section>
+      </section>
+
+      <section class="note-band" aria-label="使用說明">
+        <h2>Gmail 設定方式</h2>
+        <ol>
+          <li>點「複製到 Gmail」。</li>
+          <li>開啟 Gmail 設定中的「簽名」。</li>
+          <li>在簽名欄位貼上，確認圖片有正常顯示。</li>
+          <li>儲存變更，寄測試信確認格式。</li>
+        </ol>
+      </section>
+    </main>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>
