@@ -153,6 +153,34 @@ label span {
   font-weight: 800;
 }
 
+.field-title {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.required-mark,
+.field-error {
+  color: #d93025;
+}
+
+.field-error {
+  margin-left: 4px;
+  font-weight: 800;
+}
+
+.field-invalid input,
+.field-invalid .domain-field {
+  border-color: #d93025;
+}
+
+.field-invalid input:focus,
+.field-invalid .domain-field:focus-within {
+  border-color: #d93025;
+  box-shadow: 0 0 0 3px rgba(217, 48, 37, 0.12);
+}
+
 fieldset {
   min-width: 0;
   margin: 0;

@@ -36,6 +36,7 @@ const previewFrame = document.querySelector(".preview-frame");
 const mobileField = document.querySelector('[data-field="mobile"]');
 const extField = document.querySelector('[data-field="ext"]');
 const signatureWidth = 520;
+let validationActive = false;
 
 function field(name) {
   return form.elements[name].value.trim();
@@ -65,6 +66,47 @@ function currentLanguage() {
 function emailAddress(data) {
   const account = data.emailAccount.replace(/@.*/, "");
   return account ? `${account}@${company.emailDomain}` : "";
+}
+
+function setupRequiredLabels() {
+  form.querySelectorAll("label").forEach((label) => {
+    const input = label.querySelector("input[required]");
+    const title = label.querySelector(":scope > span");
+    if (!input || !title || title.querySelector(".required-mark")) return;
+
+    title.classList.add("field-title");
+    title.insertAdjacentHTML(
+      "beforeend",
+      '<span class="required-mark" aria-hidden="true">*</span><span class="field-error" hidden>請填寫</span>',
+    );
+  });
+}
+
+function validateRequiredFields({ showErrors = false } = {}) {
+  let firstInvalid = null;
+
+  form.querySelectorAll("input[required]").forEach((input) => {
+    const label = input.closest("label");
+    const error = label?.querySelector(".field-error");
+    const isInvalid = input.value.trim() === "";
+
+    label?.classList.toggle("field-invalid", showErrors && isInvalid);
+    input.setAttribute("aria-invalid", showErrors && isInvalid ? "true" : "false");
+
+    if (error) {
+      error.hidden = !(showErrors && isInvalid);
+    }
+
+    if (isInvalid && !firstInvalid) {
+      firstInvalid = input;
+    }
+  });
+
+  if (showErrors && firstInvalid) {
+    firstInvalid.focus();
+  }
+
+  return !firstInvalid;
 }
 
 function titleLine(data) {
@@ -225,6 +267,7 @@ function fitPreviewToFrame() {
 
 function render() {
   syncOfficeFields();
+  if (validationActive) validateRequiredFields({ showErrors: true });
   const data = collectData();
   preview.innerHTML = buildHtmlSignature(data, currentLanguage());
   window.requestAnimationFrame(fitPreviewToFrame);
@@ -239,7 +282,11 @@ function setStatus(message) {
 
 async function copyRichSignature() {
   syncOfficeFields();
-  if (!form.reportValidity()) return;
+  validationActive = true;
+  if (!validateRequiredFields({ showErrors: true })) {
+    setStatus("請先補齊紅字標示的必填欄位。");
+    return;
+  }
 
   const data = collectData();
   const lang = currentLanguage();
@@ -273,4 +320,5 @@ copyRichBtn.addEventListener("click", () =>
   }),
 );
 
+setupRequiredLabels();
 render();
