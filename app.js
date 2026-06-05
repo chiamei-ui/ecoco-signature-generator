@@ -206,8 +206,8 @@ function syncOfficeFields() {
   const isNorth = office.phoneMode === "mobile";
   mobileField.hidden = !isNorth;
   extField.hidden = isNorth;
-  form.elements.mobile.required = isNorth;
-  form.elements.ext.required = !isNorth;
+  form.elements.mobile.required = false;
+  form.elements.ext.required = false;
 }
 
 function fitPreviewToFrame() {
@@ -238,6 +238,9 @@ function setStatus(message) {
 }
 
 async function copyRichSignature() {
+  syncOfficeFields();
+  if (!form.reportValidity()) return;
+
   const data = collectData();
   const lang = currentLanguage();
   const html = buildHtmlSignature(data, lang);
@@ -259,6 +262,7 @@ async function copyRichSignature() {
 }
 
 form.addEventListener("input", render);
+form.addEventListener("change", render);
 document
   .querySelectorAll('input[name="signatureLang"]')
   .forEach((input) => input.addEventListener("change", render));
