@@ -106,7 +106,7 @@ h2 {
   display: grid;
   grid-template-columns: 390px minmax(0, 1fr);
   gap: 18px;
-  align-items: start;
+  align-items: stretch;
 }
 
 .panel {
@@ -114,6 +114,11 @@ h2 {
   border: 1px solid var(--line);
   border-radius: 8px;
   padding: 20px;
+}
+
+.preview-panel {
+  display: flex;
+  flex-direction: column;
 }
 
 .panel-head {
@@ -267,6 +272,7 @@ input::placeholder {
 }
 
 .preview-frame {
+  flex: 1;
   min-height: 560px;
   overflow: hidden;
   border: 1px solid var(--line);
