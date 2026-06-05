@@ -61,7 +61,7 @@ p {
 }
 
 h1 {
-  margin-bottom: 10px;
+  margin-bottom: 6px;
   font-size: 34px;
   line-height: 1.18;
   letter-spacing: 0;
@@ -79,6 +79,20 @@ h2 {
   color: var(--muted);
   font-size: 15px;
   line-height: 1.7;
+}
+
+.version-label {
+  display: inline-grid;
+  min-height: 24px;
+  place-items: center;
+  margin-bottom: 10px;
+  padding: 0 8px;
+  border: 1px solid rgba(255, 80, 0, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 80, 0, 0.08);
+  color: var(--brand);
+  font-size: 12px;
+  font-weight: 800;
 }
 
 .brand-logo {
@@ -124,10 +138,74 @@ label {
   gap: 6px;
 }
 
+label[hidden] {
+  display: none !important;
+}
+
 label span {
   color: var(--muted);
   font-size: 12px;
   font-weight: 800;
+}
+
+fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+legend {
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.office-toggle {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f4f6f9;
+}
+
+.office-toggle label {
+  display: block;
+}
+
+.office-toggle input {
+  position: absolute;
+  opacity: 0;
+}
+
+.office-toggle span {
+  display: grid;
+  min-height: 36px;
+  place-items: center;
+  border-radius: 6px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    background 0.16s ease,
+    color 0.16s ease,
+    box-shadow 0.16s ease;
+}
+
+.office-toggle input:checked + span {
+  background: #fff;
+  color: var(--brand);
+  box-shadow: 0 1px 4px rgba(17, 24, 39, 0.12);
+}
+
+.office-toggle input:focus-visible + span {
+  box-shadow:
+    0 1px 4px rgba(17, 24, 39, 0.12),
+    0 0 0 3px rgba(255, 80, 0, 0.16);
 }
 
 input {
@@ -153,23 +231,62 @@ input::placeholder {
   color: #c4c7cc;
 }
 
+.domain-field {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  overflow: hidden;
+  transition:
+    border-color 0.16s ease,
+    box-shadow 0.16s ease;
+}
+
+.domain-field:focus-within {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px rgba(255, 80, 0, 0.12);
+}
+
+.domain-field input {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.domain-field input:focus {
+  box-shadow: none;
+}
+
+.domain-field strong {
+  padding: 0 12px 0 8px;
+  color: var(--muted);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
 .preview-frame {
-  min-height: 306px;
-  overflow-x: auto;
+  min-height: 560px;
+  overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: #fff;
   padding: 18px;
 }
 
+.preview-language-field {
+  margin-bottom: 14px;
+}
+
 #signature-preview {
-  min-width: 560px;
+  width: 520px;
+  transform: scale(var(--preview-scale, 1));
+  transform-origin: top left;
 }
 
 .actions {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  display: flex;
   margin-top: 14px;
 }
 
@@ -197,6 +314,8 @@ button.primary {
   border-color: var(--brand);
   background: var(--brand);
   color: #fff;
+  min-width: 220px;
+  padding: 0 18px;
 }
 
 button.primary:hover {
@@ -215,14 +334,21 @@ button.primary:hover {
 
 .note-band {
   margin-top: 18px;
-  padding: 18px 20px;
+  padding: 16px 18px;
   background: #fff;
   border: 1px solid var(--line);
   border-radius: 8px;
 }
 
 .note-band h2 {
-  margin-bottom: 10px;
+  margin-bottom: 6px;
+}
+
+.note-intro {
+  margin-bottom: 12px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
 }
 
 .note-band ol {
@@ -270,8 +396,15 @@ button.primary:hover {
     padding: 16px;
   }
 
-  .actions,
   .note-band ol {
     grid-template-columns: 1fr;
+  }
+
+  .actions {
+    display: grid;
+  }
+
+  button.primary {
+    width: 100%;
   }
 }
