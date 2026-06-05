@@ -273,7 +273,7 @@ input::placeholder {
 
 .preview-frame {
   flex: 1;
-  min-height: 560px;
+  min-height: 0;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 8px;
